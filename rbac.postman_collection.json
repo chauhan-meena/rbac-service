@@ -1,0 +1,99 @@
+{
+  "info": {
+    "name": "RBAC Service",
+    "_postman_id": "rbac-collection-123",
+    "description": "RBAC APIs for role and permission testing",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Role",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"admin\",\n  \"clientId\": \"dashboard\",\n  \"permissions\": [\"user:manage\", \"read:*\"]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/role/create",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["role", "create"]
+        }
+      }
+    },
+    {
+      "name": "Assign Role",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userId\": \"u123\",\n  \"tenantId\": \"tata\",\n  \"clientId\": \"dashboard\",\n  \"roleId\": \"{{roleId}}\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/role/assign",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["role", "assign"]
+        }
+      }
+    },
+    {
+      "name": "Get User Roles",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "url": {
+          "raw": "http://localhost:3000/role/user/u123",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["role", "user", "u123"]
+        }
+      }
+    },
+    {
+      "name": "Check Permission",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"action\": \"user:manage\",\n  \"clientId\": \"dashboard\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/permission/check",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["permission", "check"]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "token",
+      "value": ""
+    },
+    {
+      "key": "roleId",
+      "value": ""
+    }
+  ]
+}
